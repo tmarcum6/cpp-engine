@@ -27,4 +27,26 @@
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="standard_shader.vs">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="color_by_vertices_shader.vs">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="orange_shader.fs">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="dynamic_shader.fs">
+      <Filter>Source Files</Filter>
+    </None>
+    <None Include="color_by_vertices_shader.fs">
+      <Filter>Source Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="vertices_data.txt">
+      <Filter>Source Files</Filter>
+    </Text>
+  </ItemGroup>
 </Project>
