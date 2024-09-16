@@ -13,35 +13,99 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\vertex shaders">
+      <UniqueIdentifier>{98ca3af5-24ca-4633-bc1e-f4e69dde0d5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\fragment shaders">
+      <UniqueIdentifier>{7f589603-ac10-4e6d-a88e-92644e98ed9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="glad">
+      <UniqueIdentifier>{e7b2b3de-3e68-4e22-9f9f-ddfa10c81a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="imgui">
+      <UniqueIdentifier>{26555496-e79a-4358-a1b0-1309b6855c74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="misc">
+      <UniqueIdentifier>{99e76d8c-4fff-4886-8dfe-887b7833561f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="glad.c">
-      <Filter>Source Files</Filter>
+      <Filter>glad</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_demo.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_draw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_glfw.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_opengl3.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_impl_win32.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_tables.cpp">
+      <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui_widgets.cpp">
+      <Filter>imgui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="standard_shader.vs">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="color_by_vertices_shader.vs">
-      <Filter>Source Files</Filter>
-    </None>
-    <None Include="orange_shader.fs">
-      <Filter>Source Files</Filter>
+    <None Include="color_by_vertices_shader.fs">
+      <Filter>Source Files\fragment shaders</Filter>
     </None>
     <None Include="dynamic_shader.fs">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\fragment shaders</Filter>
     </None>
-    <None Include="color_by_vertices_shader.fs">
-      <Filter>Source Files</Filter>
+    <None Include="orange_shader.fs">
+      <Filter>Source Files\fragment shaders</Filter>
+    </None>
+    <None Include="color_by_vertices_shader.vs">
+      <Filter>Source Files\vertex shaders</Filter>
+    </None>
+    <None Include="standard_shader.vs">
+      <Filter>Source Files\vertex shaders</Filter>
+    </None>
+    <None Include="imgui.ini">
+      <Filter>imgui</Filter>
+    </None>
+    <None Include="README.md">
+      <Filter>misc</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libs\includes\camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\includes\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\includes\shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\includes\window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="container.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
     <Text Include="vertices_data.txt">
-      <Filter>Source Files</Filter>
+      <Filter>misc</Filter>
     </Text>
   </ItemGroup>
 </Project>
