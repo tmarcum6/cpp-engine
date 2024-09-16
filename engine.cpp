@@ -1,18 +1,5 @@
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image.h"
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-#include <shader.h>
-#include <camera.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>#include "imgui/imgui.h"
-#include "imgui/imgui_impl_glfw.h"
-#include "imgui/imgui_impl_opengl3.h"
-
-#include <iostream>
-
-using namespace std;
+#include "common.h"
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
@@ -45,7 +32,7 @@ int main()
 
     if (window == NULL)
     {
-		cout << "Failed to create GLFW window" << endl;
+        std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
@@ -74,7 +61,7 @@ int main()
     // glad: load all OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
-		cout << "Failed to initialize GLAD" << endl;
+        std::cout << "Failed to initialize GLAD" << std::endl;
 		return -2;
     }
 
