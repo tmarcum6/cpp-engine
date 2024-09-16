@@ -71,8 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>C:\Users\marcu\Desktop\thirdpartylibs\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\marcu\Desktop\thirdpartylibs\libs;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)libs\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)libs\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\marcu\Desktop\thirdpartylibs\includes;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -148,6 +148,7 @@
     <None Include="color_by_vertices_shader.fs" />
     <None Include="color_by_vertices_shader.vs" />
     <None Include="dynamic_shader.fs" />
+    <None Include="imgui.ini" />
     <None Include="orange_shader.fs" />
     <None Include="README.md" />
     <None Include="standard_shader.vs" />
@@ -157,6 +158,12 @@
   </ItemGroup>
   <ItemGroup>
     <Image Include="container.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="libs\includes\camera.h" />
+    <ClInclude Include="libs\includes\common.h" />
+    <ClInclude Include="libs\includes\shader.h" />
+    <ClInclude Include="libs\includes\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
