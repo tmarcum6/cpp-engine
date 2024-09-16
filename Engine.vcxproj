@@ -135,16 +135,28 @@
   <ItemGroup>
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="glad.c" />
+    <ClCompile Include="imgui.cpp" />
+    <ClCompile Include="imgui_demo.cpp" />
+    <ClCompile Include="imgui_draw.cpp" />
+    <ClCompile Include="imgui_impl_glfw.cpp" />
+    <ClCompile Include="imgui_impl_opengl3.cpp" />
+    <ClCompile Include="imgui_impl_win32.cpp" />
+    <ClCompile Include="imgui_tables.cpp" />
+    <ClCompile Include="imgui_widgets.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color_by_vertices_shader.fs" />
     <None Include="color_by_vertices_shader.vs" />
     <None Include="dynamic_shader.fs" />
     <None Include="orange_shader.fs" />
+    <None Include="README.md" />
     <None Include="standard_shader.vs" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertices_data.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="container.jpg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
