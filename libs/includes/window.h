@@ -1,40 +1,24 @@
 #ifndef WINDOW_H
 #define WINDOW_H
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
-#include <string>
-#include <fstream>
-#include <sstream>
-#include <iostream>
-
-using namespace std;
-
-using WindowPointer = std::shared_ptr<Window>;
+#include "common.h"
 
 class Window
 {
-	public:
-		Window(const WindowID id,
-			const int width,
-			const int height,
-			const std::string & title,
-			GLFWmonitor * monitor = nullptr,
-			const WindowPointer & share = WindowPointer(nullptr));
-	
-		void Create();
+public:
+	// screen settings
+	const unsigned int SCR_WIDTH = 1920;
+	const unsigned int SCR_HEIGHT = 1080;
+	float lastX = SCR_WIDTH / 2.0f;
+	float lastY = SCR_HEIGHT / 2.0f;
 
-		void Initialize();
+	Window() 
+	{
+		glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Engine", NULL, NULL);
+	};
+
+private:
+	GLFWwindow* m_GLFWwindow;
 		
-		bool shouldClose(GLFWwindow* GLFWwindow);
-
-		void framebuffer_size_callback(GLFWwindow* GLFWwindow, int width, int height);
-		
-		void processInput(GLFWwindow* window);
-
-	private:
-		GLFWwindow* glfwWindow;
-		const WindowID windowID;
 };
 #endif

@@ -28,11 +28,11 @@
     <Filter Include="misc">
       <UniqueIdentifier>{99e76d8c-4fff-4886-8dfe-887b7833561f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\src">
+      <UniqueIdentifier>{33f77019-f54b-45db-a38f-802ee4a3ea6b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="glad.c">
       <Filter>glad</Filter>
     </ClCompile>
@@ -59,6 +59,12 @@
     </ClCompile>
     <ClCompile Include="imgui_widgets.cpp">
       <Filter>imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="vertexbuffer.cpp">
+      <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="engine.cpp">
+      <Filter>Source Files\src</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -95,6 +101,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="vertexbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

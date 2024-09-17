@@ -143,6 +143,7 @@
     <ClCompile Include="imgui_impl_win32.cpp" />
     <ClCompile Include="imgui_tables.cpp" />
     <ClCompile Include="imgui_widgets.cpp" />
+    <ClCompile Include="vertexbuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="color_by_vertices_shader.fs" />
@@ -164,6 +165,7 @@
     <ClInclude Include="libs\includes\common.h" />
     <ClInclude Include="libs\includes\shader.h" />
     <ClInclude Include="libs\includes\window.h" />
+    <ClInclude Include="vertexbuffer.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
