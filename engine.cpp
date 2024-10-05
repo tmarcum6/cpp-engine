@@ -9,16 +9,17 @@ void processInput(GLFWwindow* window);
 // screen settings
 const unsigned int SCR_WIDTH = 1920;
 const unsigned int SCR_HEIGHT = 1080;
-
-// camera
-Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 float lastX = SCR_WIDTH / 2.0f;
 float lastY = SCR_HEIGHT / 2.0f;
-bool firstMouse = true;
 
 // timing
 float deltaTime = 0.0f;	// time between current frame and last frame
 float lastFrame = 0.0f;
+
+bool firstMouse = true;
+
+// camera
+Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 int main()
 {
@@ -28,18 +29,18 @@ int main()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// glfw window creation
-	GLFWwindow* window = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, "Engine", NULL, NULL);
+    Window window(SCR_WIDTH, SCR_HEIGHT);
 
-    if (window == NULL)
+    if (window.m_GLFWwindow == NULL)
     {
         std::cout << "Failed to create GLFW window" << std::endl;
         glfwTerminate();
         return -1;
     }
-    glfwMakeContextCurrent(window);
-    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-    glfwSetCursorPosCallback(window, mouse_callback);
-    glfwSetScrollCallback(window, scroll_callback);
+    glfwMakeContextCurrent(window.m_GLFWwindow);
+    glfwSetFramebufferSizeCallback(window.m_GLFWwindow, framebuffer_size_callback);
+    glfwSetCursorPosCallback(window.m_GLFWwindow, mouse_callback);
+    glfwSetScrollCallback(window.m_GLFWwindow, scroll_callback);
 
     // Setup Dear ImGui context
     IMGUI_CHECKVERSION();
@@ -47,16 +48,18 @@ int main()
     ImGuiIO& io = ImGui::GetIO(); (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+    io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;         // Enable Docking
+    io.ConfigDockingWithShift = true;
 
     // Setup Dear ImGui style
     ImGui::StyleColorsDark();
 
     // Setup Platform/Renderer backends
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
+    ImGui_ImplGlfw_InitForOpenGL(window.m_GLFWwindow, true);
     ImGui_ImplOpenGL3_Init();
 
     // tell GLFW to capture our mouse
-    glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+    glfwSetInputMode(window.m_GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
     // glad: load all OpenGL function pointers
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -110,7 +113,7 @@ int main()
     firstShader.use();
     glUniform1i(glGetUniformLocation(firstShader.ID, "texture1"), 0);
     // render loop
-    while (!glfwWindowShouldClose(window))
+    while (!glfwWindowShouldClose(window.m_GLFWwindow))
     {
         // per-frame time logic
         // --------------------
@@ -119,7 +122,7 @@ int main()
         lastFrame = currentFrame;
 
         // input
-        processInput(window);
+        processInput(window.m_GLFWwindow);
 
         // init imgui
         ImGui_ImplOpenGL3_NewFrame();
@@ -167,7 +170,7 @@ int main()
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
         // glfw: swap buffers and poll IO events (keys pressed/released, mouse moved etc.)
-        glfwSwapBuffers(window);
+        glfwSwapBuffers(window.m_GLFWwindow);
         glfwPollEvents();
     }
 
