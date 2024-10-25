@@ -151,6 +151,8 @@
     <None Include="color_by_vertices_shader.vs" />
     <None Include="dynamic_shader.fs" />
     <None Include="imgui.ini" />
+    <None Include="light_shader.fs" />
+    <None Include="light_shader.vs" />
     <None Include="orange_shader.fs" />
     <None Include="README.md" />
     <None Include="standard_shader.vs" />
