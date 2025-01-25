@@ -36,30 +36,6 @@
     <ClCompile Include="glad.c">
       <Filter>glad</Filter>
     </ClCompile>
-    <ClCompile Include="imgui.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_demo.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_draw.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_glfw.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_opengl3.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_impl_win32.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_tables.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
-    <ClCompile Include="imgui_widgets.cpp">
-      <Filter>imgui</Filter>
-    </ClCompile>
     <ClCompile Include="vertexbuffer.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
@@ -68,6 +44,30 @@
     </ClCompile>
     <ClCompile Include="window.cpp">
       <Filter>Source Files\src</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_demo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_glfw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_opengl3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_impl_win32.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_tables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="imgui\imgui_widgets.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -110,9 +110,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="vertexbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
