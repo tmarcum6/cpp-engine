@@ -75,8 +75,8 @@ int main()
     glEnable(GL_DEPTH_TEST);
 
     // create shader objects
-    Shader firstShader("color_by_vertices_shader.vs", "color_by_vertices_shader.fs");
-    Shader lightShader("light_shader.vs", "light_shader.fs");
+    Shader firstShader("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
+    Shader lightShader("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");
 
     unsigned int VAO, lightVAO;
     glGenVertexArrays(1, &VAO);

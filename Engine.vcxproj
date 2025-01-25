@@ -150,6 +150,13 @@
     <None Include="color_by_vertices_shader.fs" />
     <None Include="color_by_vertices_shader.vs" />
     <None Include="dynamic_shader.fs" />
+    <None Include="Graphics\Shaders\color_by_vertices_shader.fs" />
+    <None Include="Graphics\Shaders\color_by_vertices_shader.vs" />
+    <None Include="Graphics\Shaders\dynamic_shader.fs" />
+    <None Include="Graphics\Shaders\light_shader.fs" />
+    <None Include="Graphics\Shaders\light_shader.vs" />
+    <None Include="Graphics\Shaders\orange_shader.fs" />
+    <None Include="Graphics\Shaders\standard_shader.vs" />
     <None Include="imgui.ini" />
     <None Include="light_shader.fs" />
     <None Include="light_shader.vs" />
