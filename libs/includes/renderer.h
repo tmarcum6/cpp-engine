@@ -1,9 +1,9 @@
-#ifndef RENDER_H
-#define RENDER_H
+#ifndef RENDERER_H
+#define RENDERER_H
 
 #include "common.h"
 
-class Render
+class Renderer
 {
 public:
 	unsigned int texture;

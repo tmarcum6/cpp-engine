@@ -69,7 +69,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\render.cpp">
+    <ClCompile Include="Source\renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -112,7 +112,7 @@
     <ClInclude Include="libs\includes\vertexbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\render.h">
+    <ClInclude Include="libs\includes\renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

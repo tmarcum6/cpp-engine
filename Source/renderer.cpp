@@ -1,16 +1,16 @@
-#ifndef RENDER
-#define RENDER
+#ifndef RENDERER
+#define RENDERER
 
-#include "render.h"
+#include "renderer.h"
 #include "common.h"
 
-void Render::Init()
+void Renderer::Init()
 {
 
 
 }
 
-void Render::Update()
+void Renderer::Update()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -19,7 +19,7 @@ void Render::Update()
     glBindTexture(GL_TEXTURE_2D, texture);
 }
 
-void Render::LoadTexture(const char* filename)
+void Renderer::LoadTexture(const char* filename)
 {
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
