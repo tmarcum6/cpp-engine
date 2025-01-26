@@ -42,44 +42,23 @@ int main()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void *)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    // load and create a texture
-    unsigned int texture;
-    glGenTextures(1, &texture);
-    glBindTexture(GL_TEXTURE_2D, texture);
-    // set the texture wrapping/filtering options (on currently bound texture)
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    // load and generate the texture
-    int width, height, nrChannels;
-    unsigned char *data = stbi_load("./Graphics/Textures/container.jpg", &width, &height, &nrChannels, 0);
-    if (data)
-    {
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-    }
-    else
-    {
-        std::cout << "Failed to load texture" << std::endl;
-    }
-
-    stbi_image_free(data);
+    Render render;
+    render.LoadTexture("./Graphics/Textures/container.jpg");
 
     // glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
-    firstShader.use();
+    firstShader.Use();
     glUniform1i(glGetUniformLocation(firstShader.ID, "texture1"), 0);
 
     glGenVertexArrays(1, &lightVAO);
     glBindVertexArray(lightVAO);
 
-    vb.bind();
+    vb.Bind();
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
 
-    lightShader.use();
+    lightShader.Use();
     lightShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
     lightShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
@@ -88,17 +67,8 @@ int main()
     {
         window.ProcessEvents(camera);
         window.init_ImGui();
-
-        // render
-        glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // draw
-        glActiveTexture(GL_TEXTURE0);
-        glBindTexture(GL_TEXTURE_2D, texture);
-
-        // activate shader
-        firstShader.use();
+        render.Update();
+        firstShader.Use();
 
         // create transformations
         glm::mat4 view = camera.GetViewMatrix(); // make sure to initialize matrix to identity matrix first
