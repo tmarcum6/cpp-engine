@@ -3,6 +3,20 @@
 
 #include "common.h"
 
+    //void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+    //void mouse_callback(GLFWwindow* window, double xpos, double ypos);
+    //void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+    //    
+    //// screen settings
+    //const unsigned int SCR_WIDTH = 1920;
+    //const unsigned int SCR_HEIGHT = 1080;
+    //float lastX = SCR_WIDTH / 2.0f;
+    //float lastY = SCR_HEIGHT / 2.0f;
+
+glm::vec3 lightPos(1.2f, 1.0f, 2.0f);
+
+    // bool firstMouse = true;
+
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
 
 int main()
@@ -10,9 +24,14 @@ int main()
     Window window;
     window.Init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
 
-    Shader firstShader("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
+    // glfwSetFramebufferSizeCallback(m_GLFWwindow, framebuffer_size_callback);
+    // glfwSetCursorPosCallback(m_GLFWwindow, mouse_callback);
+    // glfwSetScrollCallback(m_GLFWwindow, scroll_callback);
 
-    unsigned int VAO;
+    Shader firstShader("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
+    Shader lightShader("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");
+
+    unsigned int VAO, lightVAO;
     glGenVertexArrays(1, &VAO);
     VertexBuffer vb(VertexBuffer::vertices, sizeof(VertexBuffer::vertices)); // INIT VertexBuffer in VB class
     glBindVertexArray(VAO);
@@ -53,10 +72,17 @@ int main()
     firstShader.use();
     glUniform1i(glGetUniformLocation(firstShader.ID, "texture1"), 0);
 
+    glGenVertexArrays(1, &lightVAO);
+    glBindVertexArray(lightVAO);
+
     vb.bind();
 
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void *)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
+
+    lightShader.use();
+    lightShader.setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+    lightShader.setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 
     // render loop
     while (!window.ShouldClose())
@@ -103,6 +129,7 @@ int main()
         }
 
         window.render_ImGui();
+        window.Update();
     }
 
     window.close_ImGui();
@@ -113,5 +140,36 @@ int main()
     window.Shutdown();
     return 0;
 }
+
+//void framebuffer_size_callback(GLFWwindow* window, int width, int height)
+//{
+//    glViewport(0, 0, width, height);
+//}
+//    
+//void mouse_callback(GLFWwindow* window, double xposIn, double yposIn)
+//{
+//    float xpos = static_cast<float>(xposIn);
+//    float ypos = static_cast<float>(yposIn);
+//    
+//    if (firstMouse)
+//    {
+//        lastX = xpos;
+//        lastY = ypos;
+//        firstMouse = false;
+//    }
+//    
+//    float xoffset = xpos - lastX;
+//    float yoffset = lastY - ypos;
+//    
+//    lastX = xpos;
+//    lastY = ypos;
+//    
+//    camera.ProcessMouseMovement(xoffset, yoffset);
+//}
+//    
+//void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+//{
+//    camera.ProcessMouseScroll(static_cast<float>(yoffset));
+//}
 
 #endif

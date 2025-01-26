@@ -8,23 +8,36 @@ void Window::Init(std::string const &windowTitle, const unsigned int SCR_WIDTH, 
 {
     glfwInit();
 
-    m_GLFWwindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, windowTitle.c_str(), NULL, NULL);
-
+    // glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+    // glfwWindowHint(GLFW_FOCUSED, GLFW_TRUE);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+    m_GLFWwindow = glfwCreateWindow(SCR_WIDTH, SCR_HEIGHT, windowTitle.c_str(), NULL, NULL);
+    if (m_GLFWwindow == NULL)
+    {
+        std::cout << "Failed to create GLFW window" << std::endl;
+        glfwTerminate();
+    }
+
     glfwMakeContextCurrent(m_GLFWwindow);
-    // glfwSetFramebufferSizeCallback(m_GLFWwindow, framebuffer_size_callback);
-    // glfwSetCursorPosCallback(m_GLFWwindow, mouse_callback);
-    // glfwSetScrollCallback(m_GLFWwindow, scroll_callback);
+    // gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 
-    gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
-
-    glfwSetInputMode(m_GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    glEnable(GL_DEPTH_TEST);
+    //glfwSetFramebufferSizeCallback(m_GLFWwindow, framebuffer_size_callback);
+    //glfwSetCursorPosCallback(m_GLFWwindow, mouse_callback);
+    //glfwSetScrollCallback(m_GLFWwindow, scroll_callback);
 
     configure_ImGui();
+
+    glfwSetInputMode(m_GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+    
+    if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
+    {
+        std::cout << "Failed to initialize GLAD" << std::endl;
+    }
+
+    glEnable(GL_DEPTH_TEST);
 }
 
 void Window::configure_ImGui()
@@ -68,6 +81,7 @@ void Window::render_ImGui()
 void Window::Update()
 {
     glfwSwapBuffers(m_GLFWwindow);
+    glfwPollEvents();
 }
 
 bool Window::ShouldClose()
@@ -77,17 +91,17 @@ bool Window::ShouldClose()
 
 void Window::Shutdown()
 {
-    glfwDestroyWindow(m_GLFWwindow);
+    // glfwDestroyWindow(m_GLFWwindow);
     glfwTerminate();
 }
 
 void Window::ProcessEvents(Camera camera)
 {
+    // glfwPollEvents();
+    
     float currentFrame = static_cast<float>(glfwGetTime());
     m_deltaTime = currentFrame - m_lastFrame;
     m_lastFrame = currentFrame;
-
-    glfwPollEvents();
 
     if (glfwGetKey(m_GLFWwindow, GLFW_KEY_ESCAPE) == GLFW_PRESS)
         glfwSetWindowShouldClose(m_GLFWwindow, true);
@@ -101,35 +115,35 @@ void Window::ProcessEvents(Camera camera)
         camera.ProcessKeyboard(RIGHT, m_deltaTime);
 }
 
-void Window::framebuffer_size_callback(GLFWwindow *window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
-
-void Window::mouse_callback(GLFWwindow *window, double xposIn, double yposIn, Camera camera)
-{
-    float xpos = static_cast<float>(xposIn);
-    float ypos = static_cast<float>(yposIn);
-
-    if (m_firstMouse)
-    {
-        m_lastX = xpos;
-        m_lastY = ypos;
-        m_firstMouse = false;
-    }
-
-    float xoffset = xpos - m_lastX;
-    float yoffset = m_lastY - ypos;
-
-    m_lastX = xpos;
-    m_lastY = ypos;
-
-    camera.ProcessMouseMovement(xoffset, yoffset);
-}
-
-void Window::scroll_callback(GLFWwindow *window, double xoffset, double yoffset, Camera camera)
-{
-    camera.ProcessMouseScroll(static_cast<float>(yoffset));
-}
+//void framebuffer_size_callback(GLFWwindow *window, int width, int height)
+//{
+//    glViewport(0, 0, width, height);
+//}
+//    
+//void mouse_callback(GLFWwindow *window, double xposIn, double yposIn)
+//{
+//    float xpos = static_cast<float>(xposIn);
+//    float ypos = static_cast<float>(yposIn);
+//    
+//    if (m_firstMouse)
+//    {
+//        m_lastX = xpos;
+//        m_lastY = ypos;
+//        m_firstMouse = false;
+//    }
+//    
+//    float xoffset = xpos - m_lastX;
+//    float yoffset = m_lastY - ypos;
+//    
+//    m_lastX = xpos;
+//    m_lastY = ypos;
+//    
+//    camera.ProcessMouseMovement(xoffset, yoffset);
+//}
+//    
+//void scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
+//{
+//    camera.ProcessMouseScroll(static_cast<float>(yoffset));
+//}
 
 #endif

@@ -71,32 +71,11 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="color_by_vertices_shader.fs">
-      <Filter>Source Files\fragment shaders</Filter>
-    </None>
-    <None Include="dynamic_shader.fs">
-      <Filter>Source Files\fragment shaders</Filter>
-    </None>
-    <None Include="orange_shader.fs">
-      <Filter>Source Files\fragment shaders</Filter>
-    </None>
-    <None Include="color_by_vertices_shader.vs">
-      <Filter>Source Files\vertex shaders</Filter>
-    </None>
-    <None Include="standard_shader.vs">
-      <Filter>Source Files\vertex shaders</Filter>
-    </None>
     <None Include="imgui.ini">
       <Filter>imgui</Filter>
     </None>
     <None Include="README.md">
       <Filter>misc</Filter>
-    </None>
-    <None Include="light_shader.vs">
-      <Filter>Source Files\vertex shaders</Filter>
-    </None>
-    <None Include="light_shader.fs">
-      <Filter>Source Files\fragment shaders</Filter>
     </None>
     <None Include="Graphics\Shaders\color_by_vertices_shader.fs" />
     <None Include="Graphics\Shaders\color_by_vertices_shader.vs" />
@@ -105,6 +84,8 @@
     <None Include="Graphics\Shaders\light_shader.vs" />
     <None Include="Graphics\Shaders\orange_shader.fs" />
     <None Include="Graphics\Shaders\standard_shader.vs" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libs\includes\camera.h">
@@ -117,6 +98,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\includes\gl_util.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\includes\stb_image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="libs\includes\vertexbuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

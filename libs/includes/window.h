@@ -15,9 +15,9 @@ public:
 	void Shutdown();
 	void ProcessEvents(Camera camera);
 
-	void framebuffer_size_callback(GLFWwindow *window, int width, int height);
+	/*void framebuffer_size_callback(GLFWwindow *window, int width, int height);
 	void mouse_callback(GLFWwindow *window, double xpos, double ypos, Camera camera);
-	void scroll_callback(GLFWwindow *window, double xoffset, double yoffset, Camera camera);
+	void scroll_callback(GLFWwindow *window, double xoffset, double yoffset, Camera camera);*/
 
 	void configure_ImGui();
 	void init_ImGui();
@@ -27,9 +27,9 @@ public:
 private:
 	GLFWwindow *m_GLFWwindow;
 
-	bool m_firstMouse = true;
-	float m_lastX = SCR_WIDTH / 2.0f;
-	float m_lastY = SCR_HEIGHT / 2.0f;
+	//bool m_firstMouse = true;
+	//float m_lastX = SCR_WIDTH / 2.0f;
+	//float m_lastY = SCR_HEIGHT / 2.0f;
 	float m_deltaTime = 0.0f;
 	float m_lastFrame = 0.0f;
 };

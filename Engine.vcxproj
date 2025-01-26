@@ -147,9 +147,8 @@
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="color_by_vertices_shader.fs" />
-    <None Include="color_by_vertices_shader.vs" />
-    <None Include="dynamic_shader.fs" />
+    <None Include=".gitattributes" />
+    <None Include=".gitignore" />
     <None Include="Graphics\Shaders\color_by_vertices_shader.fs" />
     <None Include="Graphics\Shaders\color_by_vertices_shader.vs" />
     <None Include="Graphics\Shaders\dynamic_shader.fs" />
@@ -158,11 +157,7 @@
     <None Include="Graphics\Shaders\orange_shader.fs" />
     <None Include="Graphics\Shaders\standard_shader.vs" />
     <None Include="imgui.ini" />
-    <None Include="light_shader.fs" />
-    <None Include="light_shader.vs" />
-    <None Include="orange_shader.fs" />
     <None Include="README.md" />
-    <None Include="standard_shader.vs" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="vertices_data.txt" />
@@ -173,7 +168,10 @@
   <ItemGroup>
     <ClInclude Include="libs\includes\camera.h" />
     <ClInclude Include="libs\includes\common.h" />
+    <ClInclude Include="libs\includes\gl_util.h" />
     <ClInclude Include="libs\includes\shader.h" />
+    <ClInclude Include="libs\includes\stb_image.h" />
+    <ClInclude Include="libs\includes\vertexbuffer.h" />
     <ClInclude Include="libs\includes\window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
