@@ -83,7 +83,6 @@ void Window::render_ImGui()
 void Window::Update()
 {
     glfwSwapBuffers(m_GLFWwindow);
-    glfwPollEvents(); // move to ProcessEvents?
 }
 
 bool Window::ShouldClose()
@@ -101,6 +100,8 @@ void Window::Shutdown()
 
 void Window::ProcessEvents()
 {
+    glfwPollEvents();
+
     float currentFrame = static_cast<float>(glfwGetTime());
     m_deltaTime = currentFrame - m_lastFrame;
     m_lastFrame = currentFrame;
@@ -157,7 +158,7 @@ void Window::InitShaders()
 void Window::Render()
 {
     // create transformations
-    glm::mat4 view = m_camera->GetViewMatrix(); // make sure to initialize matrix to identity matrix first
+    glm::mat4 view = m_camera->GetViewMatrix();
     glm::mat4 projection = glm::mat4(1.0f);
     projection = glm::perspective(glm::radians(m_camera->Zoom), (float)SCR_WIDTH / (float)SCR_HEIGHT, 0.1f, 100.0f);
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));

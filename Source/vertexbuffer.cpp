@@ -1,3 +1,6 @@
+#ifndef VERTEXBUFFER
+#define VERTEXBUFFER
+
 #include "vertexbuffer.h"
 #include "common.h"
 
@@ -22,3 +25,5 @@ void VertexBuffer::unBind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
+
+#endif
