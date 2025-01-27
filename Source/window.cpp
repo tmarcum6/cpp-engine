@@ -39,38 +39,7 @@ void Window::Init(std::string const &windowTitle, const unsigned int SCR_WIDTH, 
 
     glEnable(GL_DEPTH_TEST);
 
-    shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
-    lightShader = std::make_unique<Shader>("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");
-    m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
-
-    glGenVertexArrays(1, &m_VAO);
-    VertexBuffer vb(VertexBuffer::vertices, sizeof(VertexBuffer::vertices)); // INIT VertexBuffer in VB class
-    glBindVertexArray(m_VAO);
-
-    // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-    // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
-
-    Renderer renderer;
-    renderer.LoadTexture("./Graphics/Textures/container.jpg");
-
-    shader->Use();
-    glUniform1i(glGetUniformLocation(shader->ID, "texture1"), 0);
-
-    glGenVertexArrays(1, &m_lightVAO);
-    glBindVertexArray(m_lightVAO);
-
-    vb.Bind();
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-    glEnableVertexAttribArray(0);
-
-    lightShader->Use();
-    lightShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
-    lightShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
+    InitShaders();
 }
 
 void Window::configure_ImGui()
@@ -146,6 +115,43 @@ void Window::ProcessEvents()
         m_camera->ProcessKeyboard(LEFT, m_deltaTime);
     if (glfwGetKey(m_GLFWwindow, GLFW_KEY_D) == GLFW_PRESS)
         m_camera->ProcessKeyboard(RIGHT, m_deltaTime);
+}
+
+// might need to move this to the renderer object
+void Window::InitShaders()
+{
+    shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
+    lightShader = std::make_unique<Shader>("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");
+    m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
+
+    glGenVertexArrays(1, &m_VAO);
+    VertexBuffer vb(VertexBuffer::vertices, sizeof(VertexBuffer::vertices)); // INIT VertexBuffer in VB class?
+    glBindVertexArray(m_VAO);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // texture coord attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+    Renderer renderer; // creating renderer twice, here and above main() in engine.vb. need to see why i cant make a unique ptr to this object
+    renderer.LoadTexture("./Graphics/Textures/container.jpg");
+
+    shader->Use();
+    glUniform1i(glGetUniformLocation(shader->ID, "texture1"), 0);
+
+    glGenVertexArrays(1, &m_lightVAO);
+    glBindVertexArray(m_lightVAO);
+
+    vb.Bind();
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    lightShader->Use();
+    lightShader->setVec3("objectColor", 1.0f, 0.5f, 0.31f);
+    lightShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 }
 
 void Window::Render()

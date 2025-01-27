@@ -10,7 +10,6 @@ int main()
 
     Renderer renderer;
 
-    // render loop
     while (!window.ShouldClose())
     {
         window.ProcessEvents();

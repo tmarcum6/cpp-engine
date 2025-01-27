@@ -8,7 +8,6 @@ class Renderer
 public:
 	unsigned int texture;
 
-	void Init();
 	void Update();
 	void LoadTexture(const char* filename);
 };

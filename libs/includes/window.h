@@ -39,6 +39,8 @@ private:
 	float m_lastFrame = 0.0f;
 
 	unsigned int m_VAO, m_lightVAO;
+
+	void InitShaders();
 };
 
 #endif

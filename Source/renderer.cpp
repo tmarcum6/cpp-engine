@@ -4,12 +4,6 @@
 #include "renderer.h"
 #include "common.h"
 
-void Renderer::Init()
-{
-
-
-}
-
 void Renderer::Update()
 {
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
