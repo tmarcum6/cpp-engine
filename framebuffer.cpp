@@ -1,6 +1,6 @@
 #include "framebuffer.h"
 
-FrameBuffer::FrameBuffer(float width, float height) // change to gluint?
+FrameBuffer::FrameBuffer(GLuint width, GLuint height)
 {
 	glGenFramebuffers(1, &m_fbo);
 	glBindFramebuffer(GL_FRAMEBUFFER, m_fbo);
@@ -37,7 +37,7 @@ unsigned int FrameBuffer::getFrameTexture()
 	return textureId;
 }
 
-void FrameBuffer::RescaleFrameBuffer(float width, float height)
+void FrameBuffer::RescaleFrameBuffer(GLuint width, GLuint height)
 {
 	glBindTexture(GL_TEXTURE_2D, textureId);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);

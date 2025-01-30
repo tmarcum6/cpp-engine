@@ -47,6 +47,7 @@ void Window::configure_ImGui()
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.ConfigDockingWithShift = true;
 
@@ -88,10 +89,8 @@ void Window::setBackupContext()
 void Window::drawUI() 
 {
     ImGui::NewFrame();
-    ImGui::Begin("Scene", nullptr, ImGuiWindowFlags_NoBackground);
+    ImGui::Begin("Scene");
     {
-        //ImGui::BeginChild("GameRender");
-
         float width = ImGui::GetContentRegionAvail().x;
         float height = ImGui::GetContentRegionAvail().y;
 
@@ -108,7 +107,6 @@ void Window::drawUI()
             ImVec2(1, 0)
         );
     }
-    //ImGui::EndChild();
     ImGui::End();
 }
 
@@ -150,7 +148,6 @@ void Window::ProcessEvents()
         m_camera->ProcessKeyboard(RIGHT, m_deltaTime);
 }
 
-// might need to move this to the renderer object
 void Window::InitShaders()
 {
     shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
@@ -240,8 +237,6 @@ void Window::useShader()
 
 void Window::framebuffer_size_callback(GLFWwindow *window, int width, int height)
 {
-    Window* window_ptr = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
-
     glViewport(0, 0, width, height);
 }
     

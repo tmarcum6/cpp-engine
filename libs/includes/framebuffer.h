@@ -7,13 +7,13 @@
 class FrameBuffer
 {
 public:
-	FrameBuffer(float width, float height);
+	FrameBuffer(GLuint width, GLuint height);
 	~FrameBuffer();
 
 	GLuint textureId;
 
 	unsigned int getFrameTexture();
-	void RescaleFrameBuffer(float width, float height);
+	void RescaleFrameBuffer(GLuint width, GLuint height);
 	void Bind() const;
 	void Unbind() const;
 
