@@ -1,8 +1,4 @@
-#ifndef VERTEXBUFFER
-#define VERTEXBUFFER
-
 #include "vertexbuffer.h"
-#include "common.h"
 
 VertexBuffer::VertexBuffer(const void* data, unsigned int size)
 {
@@ -25,5 +21,3 @@ void VertexBuffer::unBind()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
-
-#endif

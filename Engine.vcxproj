@@ -133,6 +133,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="framebuffer.cpp" />
     <ClCompile Include="Source\engine.cpp" />
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="imgui\imgui.cpp" />
@@ -161,12 +162,14 @@
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
+    <Text Include="to do.txt" />
     <Text Include="vertices_data.txt" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Graphics\Textures\container.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="libs\includes\framebuffer.h" />
     <ClInclude Include="libs\includes\camera.h" />
     <ClInclude Include="libs\includes\common.h" />
     <ClInclude Include="libs\includes\gl_util.h" />

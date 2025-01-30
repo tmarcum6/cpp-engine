@@ -1,7 +1,7 @@
-#ifndef VERTEXBUFFER_H
-#define VERTEXBUFFER_H
+#pragma once
 
-#include "common.h"
+#include <glad/glad.h>
+#include <glm/gtc/matrix_transform.hpp>
 
 class VertexBuffer
 {
@@ -71,5 +71,3 @@ public:
 private:
 	unsigned int m_RendererID;
 };
-
-#endif

@@ -1,5 +1,4 @@
-#ifndef GLAD_H
-#define GLAD_H
+#pragma once
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
@@ -31,5 +30,3 @@ public:
 	}
 
 };
-
-#endif
