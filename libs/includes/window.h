@@ -19,6 +19,7 @@ public:
 	bool ShouldClose();
 	void Shutdown();
 	void ProcessEvents();
+	void InitShaders();
 
 	void configure_ImGui();
 	void init_ImGui();
@@ -53,6 +54,4 @@ private:
 	float m_lastFrame = 0.0f;
 
 	unsigned int m_VAO, m_lightVAO;
-
-	void InitShaders();
 };

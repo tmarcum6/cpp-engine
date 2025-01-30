@@ -89,25 +89,36 @@ void Window::setBackupContext()
 void Window::drawUI() 
 {
     ImGui::NewFrame();
-    ImGui::Begin("Scene");
-    {
-        float width = ImGui::GetContentRegionAvail().x;
-        float height = ImGui::GetContentRegionAvail().y;
+        ImGui::Begin("Scene");
+        {
+            float width = ImGui::GetContentRegionAvail().x;
+            float height = ImGui::GetContentRegionAvail().y;
 
-        framebuffer->RescaleFrameBuffer(SCR_WIDTH, SCR_HEIGHT);
-        glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+            framebuffer->RescaleFrameBuffer(SCR_WIDTH, SCR_HEIGHT);
+            glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
 
-        ImVec2 pos = ImGui::GetCursorScreenPos();
+            ImVec2 pos = ImGui::GetCursorScreenPos();
 
-        ImGui::GetWindowDrawList()->AddImage(
-            (void*)framebuffer->textureId,
-            ImVec2(pos.x, pos.y),
-            ImVec2(pos.x + SCR_WIDTH, pos.y + SCR_HEIGHT),
-            ImVec2(0, 1),
-            ImVec2(1, 0)
-        );
-    }
-    ImGui::End();
+            ImGui::GetWindowDrawList()->AddImage(
+                (void*)framebuffer->textureId,
+                ImVec2(pos.x, pos.y),
+                ImVec2(pos.x + SCR_WIDTH, pos.y + SCR_HEIGHT),
+                ImVec2(0, 1),
+                ImVec2(1, 0)
+            );
+        }
+        ImGui::End();
+
+        ImGui::ShowDemoWindow();
+
+        ImGui::Begin("Demo");
+            ImGui::Text("Hello Demo!");
+        ImGui::End();
+
+        ImGui::Begin("Test");
+            ImGui::Text("Hello Test!");
+        ImGui::End();
+    ImGui::EndFrame();
 }
 
 void Window::Update()
