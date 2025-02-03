@@ -46,6 +46,7 @@ public:
 private:
 	GLFWwindow *m_GLFWwindow;
 	std::unique_ptr<Camera> m_camera;
+	ImGuiViewport* m_viewport;
 
 	bool m_firstMouse = true;
 	float m_lastX = SCR_WIDTH / 2.0f;

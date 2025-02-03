@@ -86,13 +86,35 @@ void Window::setBackupContext()
     glfwMakeContextCurrent(backup_current_context);
 }
 
+float static Clamp(float value, float min, float max) {
+    return (value < min) ? min : (value > max) ? max : value;
+}
+
 void Window::drawUI() 
 {
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    m_viewport= ImGui::GetMainViewport();
+    ImVec2 minBound = m_viewport->Pos;
+    ImVec2 maxBound = ImVec2(m_viewport->Pos.x + m_viewport->Size.x, m_viewport->Pos.y + m_viewport->Size.y);
+
     ImGui::NewFrame();
         ImGui::Begin("Scene");
         {
-            float width = ImGui::GetContentRegionAvail().x;
-            float height = ImGui::GetContentRegionAvail().y;
+            ImVec2 windowPos = ImGui::GetWindowPos();                            
+            ImVec2 windowSize = ImGui::GetWindowSize();
+
+            ImVec2 clampedPos = {
+               Clamp(windowPos.x, minBound.x, maxBound.x - windowSize.x),
+               Clamp(windowPos.y, minBound.y, maxBound.y - windowSize.y)
+            };
+
+            if (windowPos.x != clampedPos.x || windowPos.y != clampedPos.y)
+                ImGui::SetWindowPos(clampedPos);
+
+            const float width = ImGui::GetContentRegionAvail().x;
+            const float height = ImGui::GetContentRegionAvail().y;
 
             framebuffer->RescaleFrameBuffer(SCR_WIDTH, SCR_HEIGHT);
             glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
