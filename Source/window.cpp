@@ -1,6 +1,6 @@
 #include "window.h"
 
-void Window::Init(std::string const& windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT)
+void Window::init(std::string const& windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT)
 {
     if (!glfwInit()) {
         std::cout << "Failed to initialize GLFW" << std::endl;
@@ -25,7 +25,7 @@ void Window::Init(std::string const& windowTitle, const unsigned int SCR_WIDTH, 
     glfwSetScrollCallback(m_GLFWwindow, scroll_callback);
     glfwSetWindowSizeCallback(m_GLFWwindow, window_size_callback_static);
 
-    configure_ImGui();
+    configureImGui();
 
     glfwSetInputMode(m_GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 
@@ -36,10 +36,10 @@ void Window::Init(std::string const& windowTitle, const unsigned int SCR_WIDTH, 
 
     glEnable(GL_DEPTH_TEST);
 
-    InitShaders();
+    initShaders();
 }
 
-void Window::configure_ImGui()
+void Window::configureImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -57,21 +57,21 @@ void Window::configure_ImGui()
     ImGui_ImplOpenGL3_Init();
 }
 
-void Window::init_ImGui()
+void Window::initImGui()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
     drawUI();
 }
 
-void Window::close_ImGui()
+void Window::closeImGui()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
 
-void Window::render_ImGui()
+void Window::renderImGui()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
@@ -86,7 +86,7 @@ void Window::setBackupContext()
     glfwMakeContextCurrent(backup_current_context);
 }
 
-float static Clamp(float value, float min, float max) {
+float static clamp(float value, float min, float max) {
     return (value < min) ? min : (value > max) ? max : value;
 }
 
@@ -106,8 +106,8 @@ void Window::drawUI()
             ImVec2 windowSize = ImGui::GetWindowSize();
 
             ImVec2 clampedPos = {
-               Clamp(windowPos.x, minBound.x, maxBound.x - windowSize.x),
-               Clamp(windowPos.y, minBound.y, maxBound.y - windowSize.y)
+               clamp(windowPos.x, minBound.x, maxBound.x - windowSize.x),
+               clamp(windowPos.y, minBound.y, maxBound.y - windowSize.y)
             };
 
             if (windowPos.x != clampedPos.x || windowPos.y != clampedPos.y)
@@ -143,17 +143,17 @@ void Window::drawUI()
     ImGui::EndFrame();
 }
 
-void Window::Update()
+void Window::update()
 {
     glfwSwapBuffers(m_GLFWwindow);
 }
 
-bool Window::ShouldClose()
+bool Window::shouldClose()
 {
     return glfwWindowShouldClose(m_GLFWwindow);
 }
 
-void Window::Shutdown()
+void Window::shutDown()
 {
     glDeleteVertexArrays(1, &m_VAO);
     glDeleteProgram(shader->ID);
@@ -161,7 +161,7 @@ void Window::Shutdown()
     glfwTerminate();
 }
 
-void Window::ProcessEvents()
+void Window::processEvents()
 {
     glfwPollEvents();
 
@@ -181,7 +181,7 @@ void Window::ProcessEvents()
         m_camera->ProcessKeyboard(RIGHT, m_deltaTime);
 }
 
-void Window::InitShaders()
+void Window::initShaders()
 {
     shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
     lightShader = std::make_unique<Shader>("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");

@@ -14,17 +14,17 @@ public:
 	const unsigned int SCR_WIDTH = 1920;
 	const unsigned int SCR_HEIGHT = 1080;
 
-	void Init(std::string const &windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT);
-	void Update();
-	bool ShouldClose();
-	void Shutdown();
-	void ProcessEvents();
-	void InitShaders();
+	void init(std::string const &windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT);
+	void update();
+	bool shouldClose();
+	void shutDown();
+	void processEvents();
+	void initShaders();
 
-	void configure_ImGui();
-	void init_ImGui();
-	void close_ImGui();
-	void render_ImGui();
+	void configureImGui();
+	void initImGui();
+	void closeImGui();
+	void renderImGui();
 	void drawUI();
 	void setBackupContext();
 	void bindFrameBuffer();

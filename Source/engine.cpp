@@ -8,23 +8,23 @@
 int main()
 {
     Window window;
-    window.Init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
+    window.init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
 
-    while (!window.ShouldClose())
+    while (!window.shouldClose())
     {
-        window.ProcessEvents();
-        window.init_ImGui();
-        window.render_ImGui();
+        window.processEvents();
+        window.initImGui();
+        window.renderImGui();
         window.bindFrameBuffer();
         window.updateRenderer();
         window.useShader();
         window.handleTransformations();
         window.unbindFrameBuffer();
-        window.Update();
+        window.update();
     }
 
-    window.close_ImGui();
-    window.Shutdown();
+    window.closeImGui();
+    window.shutDown();
     return 0;
 }
 
