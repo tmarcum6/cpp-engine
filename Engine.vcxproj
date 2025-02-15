@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SolutionDir)libs\includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(SoultionDir)Source\Systems;$(SolutionDir)Source\Components;$(SolutionDir)libs\includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)libs\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -134,6 +134,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Systems\physicssystem.cpp" />
     <ClCompile Include="Source\framebuffer.cpp" />
     <ClCompile Include="Source\engine.cpp" />
     <ClCompile Include="Source\glad.c" />
@@ -180,6 +181,8 @@
     <ClInclude Include="libs\includes\camera.h" />
     <ClInclude Include="libs\includes\common.h" />
     <ClInclude Include="libs\includes\gl_util.h" />
+    <ClInclude Include="libs\includes\Math\mat44.h" />
+    <ClInclude Include="libs\includes\Math\vec4.h" />
     <ClInclude Include="libs\includes\renderer.h" />
     <ClInclude Include="libs\includes\shader.h" />
     <ClInclude Include="libs\includes\stb_image.h" />
@@ -188,6 +191,12 @@
     <ClInclude Include="libs\includes\types.h" />
     <ClInclude Include="libs\includes\vertexbuffer.h" />
     <ClInclude Include="libs\includes\window.h" />
+    <ClInclude Include="Source\Systems\physicssystem.h" />
+    <ClInclude Include="Source\Components\gravity.h" />
+    <ClInclude Include="Source\Components\rigidbody.h" />
+    <ClInclude Include="Source\Components\transform.h" />
+    <ClInclude Include="libs\includes\Math\vec2.h" />
+    <ClInclude Include="libs\includes\Math\vec3.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
