@@ -1,28 +1,30 @@
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "common.h"
+#include "window.h"
+#include "renderer.h"
+#include "framebuffer.h"
 
 int main()
 {
     Window window;
-    window.Init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
+    window.init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
 
-    Renderer renderer;
-
-    while (!window.ShouldClose())
+    while (!window.shouldClose())
     {
-        window.ProcessEvents();
-        window.init_ImGui();
-        renderer.Update();
-        window.shader->Use();
-        window.Render();
-        window.render_ImGui();
-        window.Update();
+        window.processEvents();
+        window.initImGui();
+        window.renderImGui();
+        window.bindFrameBuffer();
+        window.updateRenderer();
+        window.useShader();
+        window.handleTransformations();
+        window.unbindFrameBuffer();
+        window.update();
     }
 
-    window.close_ImGui();
-    window.Shutdown();
+    window.closeImGui();
+    window.shutDown();
     return 0;
 }
 

@@ -1,8 +1,5 @@
-#ifndef RENDERER
-#define RENDERER
-
 #include "renderer.h"
-#include "common.h"
+#include "stb_image.h"
 
 void Renderer::Update()
 {
@@ -38,5 +35,3 @@ void Renderer::LoadTexture(const char* filename)
 
     stbi_image_free(data);
 }
-
-#endif

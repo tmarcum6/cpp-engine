@@ -1,7 +1,7 @@
-#ifndef RENDERER_H
-#define RENDERER_H
+#pragma once
 
-#include "common.h"
+#include <glad/glad.h>
+#include <iostream>
 
 class Renderer
 {
@@ -11,5 +11,3 @@ public:
 	void Update();
 	void LoadTexture(const char* filename);
 };
-
-#endif

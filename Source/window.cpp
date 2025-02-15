@@ -1,10 +1,6 @@
-#ifndef WINDOW
-#define WINDOW
-
 #include "window.h"
-#include "common.h"
 
-void Window::Init(std::string const &windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT)
+void Window::init(std::string const& windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT)
 {
     if (!glfwInit()) {
         std::cout << "Failed to initialize GLFW" << std::endl;
@@ -27,11 +23,12 @@ void Window::Init(std::string const &windowTitle, const unsigned int SCR_WIDTH, 
     glfwSetFramebufferSizeCallback(m_GLFWwindow, framebuffer_size_callback);
     glfwSetCursorPosCallback(m_GLFWwindow, mouse_callback);
     glfwSetScrollCallback(m_GLFWwindow, scroll_callback);
+    glfwSetWindowSizeCallback(m_GLFWwindow, window_size_callback_static);
 
-    configure_ImGui();
+    configureImGui();
 
     glfwSetInputMode(m_GLFWwindow, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
-    
+
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD" << std::endl;
@@ -39,10 +36,10 @@ void Window::Init(std::string const &windowTitle, const unsigned int SCR_WIDTH, 
 
     glEnable(GL_DEPTH_TEST);
 
-    InitShaders();
+    initShaders();
 }
 
-void Window::configure_ImGui()
+void Window::configureImGui()
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -50,6 +47,7 @@ void Window::configure_ImGui()
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
+    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.ConfigDockingWithShift = true;
 
@@ -59,38 +57,103 @@ void Window::configure_ImGui()
     ImGui_ImplOpenGL3_Init();
 }
 
-void Window::init_ImGui()
+void Window::initImGui()
 {
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
-    ImGui::NewFrame();
-    ImGui::ShowDemoWindow();
+    drawUI();
 }
 
-void Window::close_ImGui()
+void Window::closeImGui()
 {
     ImGui_ImplOpenGL3_Shutdown();
     ImGui_ImplGlfw_Shutdown();
     ImGui::DestroyContext();
 }
 
-void Window::render_ImGui()
+void Window::renderImGui()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+    setBackupContext();
 }
 
-void Window::Update()
+void Window::setBackupContext()
+{
+    GLFWwindow* backup_current_context = glfwGetCurrentContext();
+    ImGui::UpdatePlatformWindows();
+    ImGui::RenderPlatformWindowsDefault();
+    glfwMakeContextCurrent(backup_current_context);
+}
+
+float static clamp(float value, float min, float max) {
+    return (value < min) ? min : (value > max) ? max : value;
+}
+
+void Window::drawUI() 
+{
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    m_viewport= ImGui::GetMainViewport();
+    ImVec2 minBound = m_viewport->Pos;
+    ImVec2 maxBound = ImVec2(m_viewport->Pos.x + m_viewport->Size.x, m_viewport->Pos.y + m_viewport->Size.y);
+
+    ImGui::NewFrame();
+        ImGui::Begin("Scene");
+        {
+            ImVec2 windowPos = ImGui::GetWindowPos();                            
+            ImVec2 windowSize = ImGui::GetWindowSize();
+
+            ImVec2 clampedPos = {
+               clamp(windowPos.x, minBound.x, maxBound.x - windowSize.x),
+               clamp(windowPos.y, minBound.y, maxBound.y - windowSize.y)
+            };
+
+            if (windowPos.x != clampedPos.x || windowPos.y != clampedPos.y)
+                ImGui::SetWindowPos(clampedPos);
+
+            const float width = ImGui::GetContentRegionAvail().x;
+            const float height = ImGui::GetContentRegionAvail().y;
+
+            framebuffer->RescaleFrameBuffer(SCR_WIDTH, SCR_HEIGHT);
+            glViewport(0, 0, SCR_WIDTH, SCR_HEIGHT);
+
+            ImVec2 pos = ImGui::GetCursorScreenPos();
+
+            ImGui::GetWindowDrawList()->AddImage(
+                (void*)framebuffer->textureId,
+                ImVec2(pos.x, pos.y),
+                ImVec2(pos.x + SCR_WIDTH, pos.y + SCR_HEIGHT),
+                ImVec2(0, 1),
+                ImVec2(1, 0)
+            );
+        }
+        ImGui::End();
+
+        ImGui::ShowDemoWindow();
+
+        ImGui::Begin("Demo");
+            ImGui::Text("Hello Demo!");
+        ImGui::End();
+
+        ImGui::Begin("Test");
+            ImGui::Text("Hello Test!");
+        ImGui::End();
+    ImGui::EndFrame();
+}
+
+void Window::update()
 {
     glfwSwapBuffers(m_GLFWwindow);
 }
 
-bool Window::ShouldClose()
+bool Window::shouldClose()
 {
     return glfwWindowShouldClose(m_GLFWwindow);
 }
 
-void Window::Shutdown()
+void Window::shutDown()
 {
     glDeleteVertexArrays(1, &m_VAO);
     glDeleteProgram(shader->ID);
@@ -98,7 +161,7 @@ void Window::Shutdown()
     glfwTerminate();
 }
 
-void Window::ProcessEvents()
+void Window::processEvents()
 {
     glfwPollEvents();
 
@@ -118,15 +181,16 @@ void Window::ProcessEvents()
         m_camera->ProcessKeyboard(RIGHT, m_deltaTime);
 }
 
-// might need to move this to the renderer object
-void Window::InitShaders()
+void Window::initShaders()
 {
     shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
     lightShader = std::make_unique<Shader>("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");
     m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
+    framebuffer = std::make_unique<FrameBuffer>(SCR_WIDTH, SCR_HEIGHT);
+    renderer = std::make_unique<Renderer>();
 
     glGenVertexArrays(1, &m_VAO);
-    VertexBuffer vb(VertexBuffer::vertices, sizeof(VertexBuffer::vertices)); // INIT VertexBuffer in VB class?
+    VertexBuffer vb(VertexBuffer::vertices, sizeof(VertexBuffer::vertices));
     glBindVertexArray(m_VAO);
 
     // position attribute
@@ -136,8 +200,7 @@ void Window::InitShaders()
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
-    Renderer renderer; // creating renderer twice, here and above main() in engine.vb. need to see why i cant make a unique ptr to this object
-    renderer.LoadTexture("./Graphics/Textures/container.jpg");
+    renderer->LoadTexture("./Graphics/Textures/container.jpg");
 
     shader->Use();
     glUniform1i(glGetUniformLocation(shader->ID, "texture1"), 0);
@@ -155,7 +218,7 @@ void Window::InitShaders()
     lightShader->setVec3("lightColor", 1.0f, 1.0f, 1.0f);
 }
 
-void Window::Render()
+void Window::handleTransformations()
 {
     // create transformations
     glm::mat4 view = m_camera->GetViewMatrix();
@@ -183,6 +246,26 @@ void Window::Render()
         glUniformMatrix4fv(modelLoc, 1, GL_FALSE, &model[0][0]);
         glDrawArrays(GL_TRIANGLES, 0, 36);
     }
+}
+
+void Window::bindFrameBuffer() 
+{
+    framebuffer->Bind();
+}
+
+void Window::unbindFrameBuffer()
+{
+    framebuffer->Unbind();
+}
+
+void Window::updateRenderer()
+{
+    renderer->Update();
+}
+
+void Window::useShader()
+{
+    shader->Use();
 }
 
 void Window::framebuffer_size_callback(GLFWwindow *window, int width, int height)
@@ -220,4 +303,10 @@ void Window::scroll_callback(GLFWwindow *window, double xoffset, double yoffset)
     window_ptr->m_camera->ProcessMouseScroll(static_cast<float>(yoffset));
 }
 
-#endif
+void Window::window_size_callback_static(GLFWwindow* window, int width, int height) 
+{
+    Window* window_ptr = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
+
+    glViewport(0, 0, width, height);
+    window_ptr->framebuffer->RescaleFrameBuffer(width, height);
+}
