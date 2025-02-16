@@ -1,7 +1,7 @@
 #pragma once
 
 #include "componentarray.h"
-#include "types.h"
+#include "Types.h"
 #include <any>
 #include <memory>
 #include <unordered_map>

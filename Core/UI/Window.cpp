@@ -1,4 +1,4 @@
-#include "window.h"
+#include "Window.h"
 
 void Window::init(std::string const& windowTitle, const unsigned int SCR_WIDTH, const unsigned int SCR_HEIGHT)
 {
@@ -183,8 +183,8 @@ void Window::processEvents()
 
 void Window::initShaders()
 {
-    shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader.vs", "./Graphics/Shaders/color_by_vertices_shader.fs");
-    lightShader = std::make_unique<Shader>("./Graphics/Shaders/light_shader.vs", "./Graphics/Shaders/light_shader.fs");
+    shader = std::make_unique<Shader>("./Graphics/Shaders/color_by_vertices_shader_v.glsl", "./Graphics/Shaders/color_by_vertices_shader_f.glsl");
+    lightShader = std::make_unique<Shader>("./Graphics/Shaders/light_shader_v.glsl", "./Graphics/Shaders/light_shader_f.glsl");
     m_camera = std::make_unique<Camera>(glm::vec3(0.0f, 0.0f, 3.0f));
     framebuffer = std::make_unique<FrameBuffer>(SCR_WIDTH, SCR_HEIGHT);
     renderer = std::make_unique<Renderer>();

@@ -1,4 +1,4 @@
-#include "framebuffer.h"
+#include "FrameBuffer.h"
 
 FrameBuffer::FrameBuffer(GLuint width, GLuint height)
 {

@@ -1,4 +1,4 @@
-#include "renderer.h"
+#include "Renderer.h"
 #include "stb_image.h"
 
 void Renderer::Update()

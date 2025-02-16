@@ -1,10 +1,10 @@
 #pragma once
 
-#include "system.h"
-#include "gravity.h"
-#include "rigidbody.h"
-#include "transform.h"
-#include "coordinator.h"
+#include "System.h"
+#include "Gravity.h"
+#include "RigidBody.h"
+#include "Transform.h"
+#include "Coordinator.h"
 
 class PhysicsSystem : public System
 {

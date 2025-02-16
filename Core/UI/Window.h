@@ -1,11 +1,11 @@
 #pragma once
 
-#include "common.h"
-#include "renderer.h"
-#include "framebuffer.h"
-#include "vertexbuffer.h"
-#include <shader.h>
-#include <camera.h>
+#include "Common.h"
+#include "Renderer.h"
+#include "FrameBuffer.h"
+#include "VertexBuffer.h"
+#include "Shader.h"
+#include "Camera.h"
 #include <memory>
 
 class Window

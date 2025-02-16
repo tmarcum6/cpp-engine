@@ -1,14 +1,14 @@
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "window.h"
-#include "renderer.h"
-#include "framebuffer.h"
-#include "physicssystem.h"
-#include "gravity.h"
-#include "rigidbody.h"
-#include "transform.h"
-#include "coordinator.h"
+#include "Window.h"
+#include "Renderer.h"
+#include "FrameBuffer.h"
+#include "PhysicsSystem.h"
+#include "Gravity.h"
+#include "RigidBody.h"
+#include "Transform.h"
+#include "Coordinator.h"
 #include <chrono>
 #include <random>
 

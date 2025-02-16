@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Math/vec3.h"
+#include "Vec3.h"
 
 struct Transform
 {

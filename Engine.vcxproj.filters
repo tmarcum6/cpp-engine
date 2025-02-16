@@ -33,16 +33,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\glad.c">
+    <ClCompile Include="libs\includes\glad\glad.c">
       <Filter>glad</Filter>
     </ClCompile>
-    <ClCompile Include="Source\vertexbuffer.cpp">
+    <ClCompile Include="Core\Render\VertexBuffer.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="Source\engine.cpp">
+    <ClCompile Include="Source\Engine.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="Source\window.cpp">
+    <ClCompile Include="Core\UI\Window.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
@@ -69,13 +69,22 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\renderer.cpp">
+    <ClCompile Include="Core\Render\Renderer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\framebuffer.cpp">
+    <ClCompile Include="Core\UI\FrameBuffer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Systems\physicssystem.cpp">
+    <ClCompile Include="Source\Systems\PhysicsSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\CameraControlSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\PlayerControlSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Systems\RenderSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -86,27 +95,27 @@
     <None Include="README.md">
       <Filter>misc</Filter>
     </None>
-    <None Include="Graphics\Shaders\color_by_vertices_shader.fs" />
-    <None Include="Graphics\Shaders\color_by_vertices_shader.vs" />
-    <None Include="Graphics\Shaders\dynamic_shader.fs" />
-    <None Include="Graphics\Shaders\light_shader.fs" />
-    <None Include="Graphics\Shaders\light_shader.vs" />
-    <None Include="Graphics\Shaders\orange_shader.fs" />
-    <None Include="Graphics\Shaders\standard_shader.vs" />
+    <None Include="Graphics\Shaders\color_by_vertices_shader_f.glsl" />
+    <None Include="Graphics\Shaders\color_by_vertices_shader_v.glsl" />
+    <None Include="Graphics\Shaders\dynamic_shader.glsl" />
+    <None Include="Graphics\Shaders\light_shader_f.glsl" />
+    <None Include="Graphics\Shaders\light_shader_v.glsl" />
+    <None Include="Graphics\Shaders\orange_shader.glsl" />
+    <None Include="Graphics\Shaders\standard_shader.glsl" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libs\includes\camera.h">
+    <ClInclude Include="Core\Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\shader.h">
+    <ClInclude Include="Core\Render\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\window.h">
+    <ClInclude Include="Core\UI\Window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\gl_util.h">
@@ -115,64 +124,85 @@
     <ClInclude Include="libs\includes\stb_image.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\vertexbuffer.h">
+    <ClInclude Include="Core\Render\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\renderer.h">
+    <ClInclude Include="Core\Render\Renderer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\framebuffer.h">
+    <ClInclude Include="Core\UI\FrameBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\entitymanager.h">
+    <ClInclude Include="Core\ECS\EntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\types.h">
+    <ClInclude Include="Core\ECS\Types.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\componentarray.h">
+    <ClInclude Include="Core\ECS\ComponentArray.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\componentmanager.h">
+    <ClInclude Include="Core\ECS\ComponentManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\system.h">
+    <ClInclude Include="Core\ECS\System.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\systemmanager.h">
+    <ClInclude Include="Core\ECS\SystemManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\coordinator.h">
+    <ClInclude Include="Core\ECS\Coordinator.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\event.h">
+    <ClInclude Include="Core\ECS\Event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\eventmanager.h">
+    <ClInclude Include="Core\ECS\EventManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\gravity.h">
+    <ClInclude Include="Source\Components\Gravity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\rigidbody.h">
+    <ClInclude Include="Source\Components\RigidBody.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Components\transform.h">
+    <ClInclude Include="Source\Components\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\Math\vec3.h">
+    <ClInclude Include="Core\Math\Vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\Math\vec2.h">
+    <ClInclude Include="Core\Math\Vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\Math\vec4.h">
+    <ClInclude Include="Core\Math\Vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="libs\includes\Math\mat44.h">
+    <ClInclude Include="Core\Math\Mat44.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Systems\physicssystem.h">
+    <ClInclude Include="Source\Systems\PhysicsSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Camera2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Player.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Renderable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Thrust.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\CameraControlSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\PlayerControlSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Systems\RenderSystem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

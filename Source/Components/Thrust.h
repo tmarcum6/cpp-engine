@@ -2,7 +2,7 @@
 
 #include "Vec3.h"
 
-struct Gravity
+struct Thrust
 {
 	Vec3 force;
 };

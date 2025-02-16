@@ -71,7 +71,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(SoultionDir)Source\Systems;$(SolutionDir)Source\Components;$(SolutionDir)libs\includes;$(IncludePath)</IncludePath>
+    <IncludePath>$(SoultionDir)Core/;$(SoultionDir)Core/ECS;$(SoultionDir)Core/Render;$(SoultionDir)Core/UI;$(SoultionDir)Core/Math;$(SoultionDir)Source/Systems;$(SoultionDir)Source/Components;$(SolutionDir)libs/includes;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)libs\libs;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -134,10 +134,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Systems\physicssystem.cpp" />
-    <ClCompile Include="Source\framebuffer.cpp" />
-    <ClCompile Include="Source\engine.cpp" />
-    <ClCompile Include="Source\glad.c" />
+    <ClCompile Include="Source\Systems\CameraControlSystem.cpp" />
+    <ClCompile Include="Source\Systems\PhysicsSystem.cpp" />
+    <ClCompile Include="Core\UI\FrameBuffer.cpp" />
+    <ClCompile Include="Source\Engine.cpp" />
+    <ClCompile Include="libs\includes\glad\glad.c" />
     <ClCompile Include="imgui\imgui.cpp" />
     <ClCompile Include="imgui\imgui_demo.cpp" />
     <ClCompile Include="imgui\imgui_draw.cpp" />
@@ -146,20 +147,22 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Source\renderer.cpp" />
-    <ClCompile Include="Source\vertexbuffer.cpp" />
-    <ClCompile Include="Source\window.cpp" />
+    <ClCompile Include="Core\Render\Renderer.cpp" />
+    <ClCompile Include="Core\Render\VertexBuffer.cpp" />
+    <ClCompile Include="Core\UI\Window.cpp" />
+    <ClCompile Include="Source\Systems\PlayerControlSystem.cpp" />
+    <ClCompile Include="Source\Systems\RenderSystem.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="Graphics\Shaders\color_by_vertices_shader.fs" />
-    <None Include="Graphics\Shaders\color_by_vertices_shader.vs" />
-    <None Include="Graphics\Shaders\dynamic_shader.fs" />
-    <None Include="Graphics\Shaders\light_shader.fs" />
-    <None Include="Graphics\Shaders\light_shader.vs" />
-    <None Include="Graphics\Shaders\orange_shader.fs" />
-    <None Include="Graphics\Shaders\standard_shader.vs" />
+    <None Include="Graphics\Shaders\color_by_vertices_shader_f.glsl" />
+    <None Include="Graphics\Shaders\color_by_vertices_shader_v.glsl" />
+    <None Include="Graphics\Shaders\dynamic_shader.glsl" />
+    <None Include="Graphics\Shaders\light_shader_f.glsl" />
+    <None Include="Graphics\Shaders\light_shader_v.glsl" />
+    <None Include="Graphics\Shaders\orange_shader.glsl" />
+    <None Include="Graphics\Shaders\standard_shader.glsl" />
     <None Include="imgui.ini" />
     <None Include="README.md" />
   </ItemGroup>
@@ -171,32 +174,39 @@
     <Image Include="Graphics\Textures\container.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="libs\includes\componentarray.h" />
-    <ClInclude Include="libs\includes\componentmanager.h" />
-    <ClInclude Include="libs\includes\coordinator.h" />
-    <ClInclude Include="libs\includes\entitymanager.h" />
-    <ClInclude Include="libs\includes\event.h" />
-    <ClInclude Include="libs\includes\eventmanager.h" />
-    <ClInclude Include="libs\includes\framebuffer.h" />
-    <ClInclude Include="libs\includes\camera.h" />
+    <ClInclude Include="Core\ECS\ComponentArray.h" />
+    <ClInclude Include="Core\ECS\ComponentManager.h" />
+    <ClInclude Include="Core\ECS\Coordinator.h" />
+    <ClInclude Include="Core\ECS\EntityManager.h" />
+    <ClInclude Include="Core\ECS\Event.h" />
+    <ClInclude Include="Core\ECS\EventManager.h" />
+    <ClInclude Include="Core\UI\FrameBuffer.h" />
+    <ClInclude Include="Core\Camera.h" />
     <ClInclude Include="libs\includes\common.h" />
     <ClInclude Include="libs\includes\gl_util.h" />
-    <ClInclude Include="libs\includes\Math\mat44.h" />
-    <ClInclude Include="libs\includes\Math\vec4.h" />
-    <ClInclude Include="libs\includes\renderer.h" />
-    <ClInclude Include="libs\includes\shader.h" />
+    <ClInclude Include="Core\Math\Mat44.h" />
+    <ClInclude Include="Core\Math\Vec4.h" />
+    <ClInclude Include="Core\Render\Renderer.h" />
+    <ClInclude Include="Core\Render\Shader.h" />
     <ClInclude Include="libs\includes\stb_image.h" />
-    <ClInclude Include="libs\includes\system.h" />
-    <ClInclude Include="libs\includes\systemmanager.h" />
-    <ClInclude Include="libs\includes\types.h" />
-    <ClInclude Include="libs\includes\vertexbuffer.h" />
-    <ClInclude Include="libs\includes\window.h" />
-    <ClInclude Include="Source\Systems\physicssystem.h" />
-    <ClInclude Include="Source\Components\gravity.h" />
-    <ClInclude Include="Source\Components\rigidbody.h" />
-    <ClInclude Include="Source\Components\transform.h" />
-    <ClInclude Include="libs\includes\Math\vec2.h" />
-    <ClInclude Include="libs\includes\Math\vec3.h" />
+    <ClInclude Include="Core\ECS\System.h" />
+    <ClInclude Include="Core\ECS\SystemManager.h" />
+    <ClInclude Include="Core\ECS\Types.h" />
+    <ClInclude Include="Core\Render\VertexBuffer.h" />
+    <ClInclude Include="Core\UI\Window.h" />
+    <ClInclude Include="Source\Components\Camera2.h" />
+    <ClInclude Include="Source\Components\Player.h" />
+    <ClInclude Include="Source\Components\Renderable.h" />
+    <ClInclude Include="Source\Components\Thrust.h" />
+    <ClInclude Include="Source\Systems\CameraControlSystem.h" />
+    <ClInclude Include="Source\Systems\PhysicsSystem.h" />
+    <ClInclude Include="Source\Components\Gravity.h" />
+    <ClInclude Include="Source\Components\RigidBody.h" />
+    <ClInclude Include="Source\Components\Transform.h" />
+    <ClInclude Include="Core\Math\Vec2.h" />
+    <ClInclude Include="Core\Math\Vec3.h" />
+    <ClInclude Include="Source\Systems\PlayerControlSystem.h" />
+    <ClInclude Include="Source\Systems\RenderSystem.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

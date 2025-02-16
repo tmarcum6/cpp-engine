@@ -2,7 +2,7 @@
 
 #include "Vec3.h"
 
-struct Gravity
+struct Renderable
 {
-	Vec3 force;
+	Vec3 color;
 };

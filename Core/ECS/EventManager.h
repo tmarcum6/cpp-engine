@@ -1,7 +1,7 @@
 #pragma once
 
 #include "event.h"
-#include "types.h"
+#include "Types.h"
 #include <functional>
 #include <list>
 #include <unordered_map>
