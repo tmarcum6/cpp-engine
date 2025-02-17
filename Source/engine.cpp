@@ -1,14 +1,19 @@
 #ifndef STB_IMAGE_IMPLEMENTATION
 #define STB_IMAGE_IMPLEMENTATION
 
-#include "Window.h"
-#include "Renderer.h"
+#include "WindowManager.h"
 #include "FrameBuffer.h"
 #include "PhysicsSystem.h"
 #include "Gravity.h"
 #include "RigidBody.h"
 #include "Transform.h"
+#include "Player.h"
+#include "Renderable.h"
+#include "Thrust.h"
 #include "Coordinator.h"
+#include "PlayerControlSystem.h"
+#include "RenderSystem.h"
+#include "CameraControlSystem.h"
 #include <chrono>
 #include <random>
 
@@ -16,8 +21,7 @@ Coordinator gCoordinator;
 
 static bool quit = false;
 
-
-void QuitHandler(Event& event)
+static void QuitHandler(Event& event)
 {
     quit = true;
 }
@@ -26,80 +30,133 @@ int main()
 {
     gCoordinator.Init();
 
-    Window window;
-    window.init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
-    
+	WindowManager windowManager;
+	//window.init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
+	windowManager.Init("Engine", 1920, 1080, 0, 0);
+
     gCoordinator.AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
+    gCoordinator.RegisterComponent<Camera>();
     gCoordinator.RegisterComponent<Gravity>();
+    gCoordinator.RegisterComponent<Player>();
+    gCoordinator.RegisterComponent<Renderable>();
     gCoordinator.RegisterComponent<RigidBody>();
+    gCoordinator.RegisterComponent<Thrust>();
     gCoordinator.RegisterComponent<Transform>();
 
-    auto physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
+	auto physicsSystem = gCoordinator.RegisterSystem<PhysicsSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Gravity>());
+		signature.set(gCoordinator.GetComponentType<RigidBody>());
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
+	}
 
-    Signature signature;
-    signature.set(gCoordinator.GetComponentType<Gravity>());
-    signature.set(gCoordinator.GetComponentType<RigidBody>());
-    signature.set(gCoordinator.GetComponentType<Transform>());
-    gCoordinator.SetSystemSignature<PhysicsSystem>(signature);
+	physicsSystem->Init();
 
-    physicsSystem->Init();
 
-    std::vector<Entity> entities(MAX_ENTITIES);
+	auto cameraControlSystem = gCoordinator.RegisterSystem<CameraControlSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Camera>());
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		gCoordinator.SetSystemSignature<CameraControlSystem>(signature);
+	}
 
-    std::default_random_engine generator;
-    std::uniform_real_distribution<float> randPosition(-100.0f, 100.0f);
-    std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
-    std::uniform_real_distribution<float> randScale(3.0f, 5.0f);
-    std::uniform_real_distribution<float> randGravity(-10.0f, -1.0f);
+	cameraControlSystem->Init();
 
-    float scale = randScale(generator);
 
-    for (auto& entity : entities)
+	auto playerControlSystem = gCoordinator.RegisterSystem<PlayerControlSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Player>());
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		gCoordinator.SetSystemSignature<PlayerControlSystem>(signature);
+	}
+
+	playerControlSystem->Init();
+
+
+	auto renderSystem = gCoordinator.RegisterSystem<RenderSystem>();
+	{
+		Signature signature;
+		signature.set(gCoordinator.GetComponentType<Renderable>());
+		signature.set(gCoordinator.GetComponentType<Transform>());
+		gCoordinator.SetSystemSignature<RenderSystem>(signature);
+	}
+
+	renderSystem->Init();
+
+	std::vector<Entity> entities(MAX_ENTITIES - 1);
+
+	std::default_random_engine generator;
+	std::uniform_real_distribution<float> randPosition(-100.0f, 100.0f);
+	std::uniform_real_distribution<float> randRotation(0.0f, 3.0f);
+	std::uniform_real_distribution<float> randScale(3.0f, 5.0f);
+	std::uniform_real_distribution<float> randColor(0.0f, 1.0f);
+	std::uniform_real_distribution<float> randGravity(-10.0f, -1.0f);
+
+	float scale = randScale(generator);
+
+	for (auto& entity : entities)
+	{
+		entity = gCoordinator.CreateEntity();
+		gCoordinator.AddComponent(entity, Player{});
+
+		gCoordinator.AddComponent<Gravity>(
+			entity,
+			{ Vec3(0.0f, randGravity(generator), 0.0f) });
+
+		gCoordinator.AddComponent(
+			entity,
+			RigidBody{
+				.velocity = Vec3(0.0f, 0.0f, 0.0f),
+				.acceleration = Vec3(0.0f, 0.0f, 0.0f)
+			});
+
+		gCoordinator.AddComponent(
+			entity,
+			Transform{
+				.position = Vec3(randPosition(generator), randPosition(generator), randPosition(generator)),
+				.rotation = Vec3(randRotation(generator), randRotation(generator), randRotation(generator)),
+				.scale = Vec3(scale, scale, scale)
+			});
+
+		gCoordinator.AddComponent(
+			entity,
+			Renderable{
+				.color = Vec3(randColor(generator), randColor(generator), randColor(generator))
+			});
+	}
+
+	float dt = 0.0f;
+
+    //while (!window.shouldClose())
+	while (!quit)
     {
-        entity = gCoordinator.CreateEntity();
+        auto startTime = std::chrono::high_resolution_clock::now();
+        
+		windowManager.ProcessEvents();
 
-        gCoordinator.AddComponent(
-            entity,
-            Gravity{ Vec3(0.0f, randGravity(generator), 0.0f) });
-
-        gCoordinator.AddComponent(
-            entity,
-            RigidBody{
-                .velocity = Vec3(0.0f, 0.0f, 0.0f),
-                .acceleration = Vec3(0.0f, 0.0f, 0.0f)
-            });
-
-        gCoordinator.AddComponent(
-            entity,
-            Transform{
-                .position = Vec3(randPosition(generator), randPosition(generator), randPosition(generator)),
-                .rotation = Vec3(randRotation(generator), randRotation(generator), randRotation(generator)),
-                .scale = Vec3(scale, scale, scale)
-            });
-    }
-
-    float dt = 0.0f;
-   
-    while (!window.shouldClose())
-    {
-        //auto startTime = std::chrono::high_resolution_clock::now();
-        window.processEvents();
-        window.initImGui();
+        /*window.initImGui();
         window.renderImGui();
-        window.bindFrameBuffer();
-        //physicsSystem->Update(dt);
-        window.updateRenderer();
-        window.useShader();
-        window.handleTransformations();
-        window.unbindFrameBuffer();
-        window.update();
-        //auto stopTime = std::chrono::high_resolution_clock::now();
-        //dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
+        window.bindFrameBuffer();*/
+		
+		playerControlSystem->Update(dt);
+		cameraControlSystem->Update(dt);
+        physicsSystem->Update(dt);
+		renderSystem->Update(dt);
+		windowManager.Update();
+        
+        //window.unbindFrameBuffer();
+        
+		auto stopTime = std::chrono::high_resolution_clock::now();
+        dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
 
-    window.closeImGui();
-    window.shutDown();
+    //window.closeImGui();
+	windowManager.Shutdown();
     return 0;
 }
 

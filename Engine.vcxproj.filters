@@ -42,7 +42,7 @@
     <ClCompile Include="Source\Engine.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
-    <ClCompile Include="Core\UI\Window.cpp">
+    <ClCompile Include="Core\UI\Window_old.cpp">
       <Filter>Source Files\src</Filter>
     </ClCompile>
     <ClCompile Include="imgui\imgui.cpp">
@@ -69,7 +69,7 @@
     <ClCompile Include="imgui\imgui_widgets.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Render\Renderer.cpp">
+    <ClCompile Include="Core\Render\Renderer_old.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Core\UI\FrameBuffer.cpp">
@@ -85,6 +85,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Source\Systems\RenderSystem.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\UI\WindowManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Render\Shader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -104,18 +110,20 @@
     <None Include="Graphics\Shaders\standard_shader.glsl" />
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
+    <None Include="Graphics\Shaders\fragment.glsl" />
+    <None Include="Graphics\Shaders\vertex.glsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\Camera.h">
+    <ClInclude Include="Source\Components\Camera_old.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Render\Shader.h">
+    <ClInclude Include="Core\Render\Shader_old.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\UI\Window.h">
+    <ClInclude Include="Core\UI\Window_old.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="libs\includes\gl_util.h">
@@ -127,7 +135,7 @@
     <ClInclude Include="Core\Render\VertexBuffer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Render\Renderer.h">
+    <ClInclude Include="Core\Render\Renderer_old.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Core\UI\FrameBuffer.h">
@@ -169,22 +177,19 @@
     <ClInclude Include="Source\Components\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Math\Vec3.h">
+    <ClInclude Include="libs\includes\Math\Vec3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Math\Vec2.h">
+    <ClInclude Include="libs\includes\Math\Vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Math\Vec4.h">
+    <ClInclude Include="libs\includes\Math\Vec4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Math\Mat44.h">
+    <ClInclude Include="libs\includes\Math\Mat44.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Systems\PhysicsSystem.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\Components\Camera2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Components\Player.h">
@@ -203,6 +208,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Source\Systems\RenderSystem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\UI\WindowManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Components\Camera.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Render\Shader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

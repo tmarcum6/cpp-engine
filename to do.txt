@@ -1,4 +1,5 @@
 x -> fix header refs
+x -> fix how window class is being used as coordinator
 x -> UI
 x -> ecs
 x -> physics
@@ -10,3 +11,4 @@ x -> render console to imgui window
 x -> test cases
 x -> change shaders to glsl extension type
 x -> assimp
+x -> move Math class to use glm

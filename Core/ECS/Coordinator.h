@@ -1,9 +1,9 @@
 #pragma once
 
-#include "componentmanager.h"
-#include "entitymanager.h"
-#include "eventmanager.h"
-#include "systemmanager.h"
+#include "ComponentManager.h"
+#include "EntityManager.h"
+#include "EventManager.h"
+#include "SystemManager.h"
 #include "Types.h"
 #include <memory>
 

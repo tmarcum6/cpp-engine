@@ -2,7 +2,8 @@
 
 This is a 3D game engine written using C++ and OpenGL.
 
-~Credits~
+Credits
+_______
 
 Joey DeVries
 https://github.com/JoeyDeVries/LearnOpenGL/

@@ -1,11 +1,6 @@
 #pragma once
 
-#include "componentarray.h"
-#include "Types.h"
-#include <any>
-#include <memory>
-#include <unordered_map>
-
+#include "ComponentArray.h"
 
 class ComponentManager
 {
