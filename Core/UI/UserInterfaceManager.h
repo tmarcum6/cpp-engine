@@ -7,10 +7,10 @@ class UserInterfaceManager
 public:
 	void Update();
 	void ShutDown();
-	//void BindFrameBuffer() const;
-	//void UnbindFrameBuffer() const;
 	void ConfigureImGui(GLFWwindow *mWindow);
-	
+
+	//void BindFrameBuffer() const;
+	//void UnbindFrameBuffer() const;	
 	//std::unique_ptr<FrameBuffer> framebuffer;
 
 	//static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
@@ -23,4 +23,3 @@ private:
 	
 	ImGuiViewport* m_viewport;
 };
-
