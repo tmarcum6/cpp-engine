@@ -7,13 +7,13 @@ class UserInterfaceManager
 public:
 	void Update();
 	void ShutDown();
-	void BindFrameBuffer() const;
-	void UnbindFrameBuffer() const;
-	void ConfigureImGui();
+	//void BindFrameBuffer() const;
+	//void UnbindFrameBuffer() const;
+	void ConfigureImGui(GLFWwindow *mWindow);
 	
-	std::unique_ptr<FrameBuffer> framebuffer;
+	//std::unique_ptr<FrameBuffer> framebuffer;
 
-	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	//static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 private:
 	void initImGui();
@@ -21,7 +21,6 @@ private:
 	void drawUI();
 	void setBackupContext();
 	
-	GLFWwindow* m_GLFWwindow;
 	ImGuiViewport* m_viewport;
 };
 

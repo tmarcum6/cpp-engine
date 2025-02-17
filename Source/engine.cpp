@@ -32,11 +32,10 @@ int main()
     gCoordinator.Init();
 
 	WindowManager windowManager;
-	//window.init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
-	windowManager.Init("Engine", 1920, 1080, 0, 0);
-
 	UserInterfaceManager uiManager;
-	//uiManager.ConfigureImGui();
+
+	//                ("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
+	windowManager.Init("Engine", 1920, 1080, 0, 0);
 
     gCoordinator.AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
@@ -141,33 +140,22 @@ int main()
         auto startTime = std::chrono::high_resolution_clock::now();
         
 		windowManager.ProcessEvents();
-
-        /*window.initImGui();
-        window.renderImGui();
-        window.bindFrameBuffer();*/
-
-	/*	uiManager.Update();
-		uiManager.BindFrameBuffer();*/
-		
+		uiManager.Update();
 		playerControlSystem->Update(dt);
 		cameraControlSystem->Update(dt);
         physicsSystem->Update(dt);
 		renderSystem->Update(dt);
 
+		//uiManager.BindFrameBuffer();
 		//uiManager.UnbindFrameBuffer();
 
 		windowManager.Update();
         
-        //window.unbindFrameBuffer();
-        
-
 		auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
 
-    //window.closeImGui();
-
-	//uiManager.ShutDown();
+	uiManager.ShutDown();
 	windowManager.Shutdown();
     return 0;
 }

@@ -5,6 +5,7 @@
 #include <bitset>
 #include <string>
 #include "Coordinator.h"
+#include "UserInterfaceManager.h"
 #include <bitset>
 #include <iostream>
 
@@ -16,13 +17,13 @@ public:
 		unsigned int windowPositionX, unsigned int windowPositionY);
 
 	void Update();
-
 	void ProcessEvents();
-
 	void Shutdown();
 
 private:
 	GLFWwindow* mWindow;
+	
+	UserInterfaceManager* mUserInterfaceManager;
 
 	std::bitset<8> mButtons;
 };

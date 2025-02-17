@@ -4,7 +4,7 @@ float static clamp(float value, float min, float max) {
     return (value < min) ? min : (value > max) ? max : value;
 }
 
-void UserInterfaceManager::ConfigureImGui()
+void UserInterfaceManager::ConfigureImGui(GLFWwindow *mWindow)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -18,7 +18,7 @@ void UserInterfaceManager::ConfigureImGui()
 
     ImGui::StyleColorsDark();
 
-    ImGui_ImplGlfw_InitForOpenGL(m_GLFWwindow, true);
+    ImGui_ImplGlfw_InitForOpenGL(mWindow, true);
     ImGui_ImplOpenGL3_Init();
 
     //glfwSetFramebufferSizeCallback(m_GLFWwindow, framebuffer_size_callback);
@@ -64,42 +64,11 @@ void UserInterfaceManager::drawUI()
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    m_viewport= ImGui::GetMainViewport();
+   /* m_viewport= ImGui::GetMainViewport();
     ImVec2 minBound = m_viewport->Pos;
-    ImVec2 maxBound = ImVec2(m_viewport->Pos.x + m_viewport->Size.x, m_viewport->Pos.y + m_viewport->Size.y);
+    ImVec2 maxBound = ImVec2(m_viewport->Pos.x + m_viewport->Size.x, m_viewport->Pos.y + m_viewport->Size.y);*/
 
     ImGui::NewFrame();
-        ImGui::Begin("Scene");
-        {
-            ImVec2 windowPos = ImGui::GetWindowPos();                            
-            ImVec2 windowSize = ImGui::GetWindowSize();
-
-            ImVec2 clampedPos = {
-               clamp(windowPos.x, minBound.x, maxBound.x - windowSize.x),
-               clamp(windowPos.y, minBound.y, maxBound.y - windowSize.y)
-            };
-
-            if (windowPos.x != clampedPos.x || windowPos.y != clampedPos.y)
-                ImGui::SetWindowPos(clampedPos);
-
-            const float width = ImGui::GetContentRegionAvail().x;
-            const float height = ImGui::GetContentRegionAvail().y;
-
-            framebuffer->RescaleFrameBuffer(1920, 1080);
-            glViewport(0, 0, 1920, 1080);
-
-            ImVec2 pos = ImGui::GetCursorScreenPos();
-
-            ImGui::GetWindowDrawList()->AddImage(
-                (void*)framebuffer->textureId,
-                ImVec2(pos.x, pos.y),
-                ImVec2(pos.x + 1920, pos.y + 1080),
-                ImVec2(0, 1),
-                ImVec2(1, 0)
-            );
-        }
-        ImGui::End();
-
         ImGui::ShowDemoWindow();
 
         ImGui::Begin("Demo");
@@ -112,17 +81,17 @@ void UserInterfaceManager::drawUI()
     ImGui::EndFrame();
 }
 
-void UserInterfaceManager::BindFrameBuffer() const
-{
-    framebuffer->Bind();
-}
+//void UserInterfaceManager::BindFrameBuffer() const
+//{
+//    framebuffer->Bind();
+//}
+//
+//void UserInterfaceManager::UnbindFrameBuffer() const
+//{
+//    framebuffer->Unbind();
+//}
 
-void UserInterfaceManager::UnbindFrameBuffer() const
-{
-    framebuffer->Unbind();
-}
-
-void UserInterfaceManager::framebuffer_size_callback(GLFWwindow *window, int width, int height)
-{
-    glViewport(0, 0, width, height);
-}
+//void UserInterfaceManager::framebuffer_size_callback(GLFWwindow *window, int width, int height)
+//{
+//    glViewport(0, 0, width, height);
+//}

@@ -2,7 +2,6 @@
 
 extern Coordinator gCoordinator;
 
-// TODO: Return error to caller
 void WindowManager::Init(
 	std::string const& windowTitle, unsigned int windowWidth, unsigned int windowHeight, unsigned int windowPositionX,
 	unsigned int windowPositionY)
@@ -19,6 +18,9 @@ void WindowManager::Init(
 
 	// Create OpenGL Context
 	glfwMakeContextCurrent(mWindow);
+
+	mUserInterfaceManager->ConfigureImGui(mWindow);
+
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glfwSwapInterval(2);
 
