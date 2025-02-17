@@ -149,11 +149,10 @@
     <ClCompile Include="imgui\imgui_impl_win32.cpp" />
     <ClCompile Include="imgui\imgui_tables.cpp" />
     <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="Core\Render\Renderer_old.cpp" />
     <ClCompile Include="Core\Render\VertexBuffer.cpp" />
-    <ClCompile Include="Core\UI\Window_old.cpp" />
     <ClCompile Include="Source\Systems\PlayerControlSystem.cpp" />
     <ClCompile Include="Source\Systems\RenderSystem.cpp" />
+    <ClCompile Include="Core\UI\UserInterfaceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitattributes" />
@@ -193,14 +192,11 @@
     <ClInclude Include="libs\includes\gl_util.h" />
     <ClInclude Include="libs\includes\Math\Mat44.h" />
     <ClInclude Include="libs\includes\Math\Vec4.h" />
-    <ClInclude Include="Core\Render\Renderer_old.h" />
-    <ClInclude Include="Core\Render\Shader_old.h" />
     <ClInclude Include="libs\includes\stb_image.h" />
     <ClInclude Include="Core\ECS\System.h" />
     <ClInclude Include="Core\ECS\SystemManager.h" />
     <ClInclude Include="Core\ECS\Types.h" />
     <ClInclude Include="Core\Render\VertexBuffer.h" />
-    <ClInclude Include="Core\UI\Window_old.h" />
     <ClInclude Include="Source\Components\Player.h" />
     <ClInclude Include="Source\Components\Renderable.h" />
     <ClInclude Include="Source\Components\Thrust.h" />
@@ -213,6 +209,7 @@
     <ClInclude Include="libs\includes\Math\Vec3.h" />
     <ClInclude Include="Source\Systems\PlayerControlSystem.h" />
     <ClInclude Include="Source\Systems\RenderSystem.h" />
+    <ClInclude Include="Core\UI\UserInterfaceManager.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

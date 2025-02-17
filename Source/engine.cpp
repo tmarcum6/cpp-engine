@@ -2,6 +2,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 
 #include "WindowManager.h"
+#include "UserInterfaceManager.h"
 #include "FrameBuffer.h"
 #include "PhysicsSystem.h"
 #include "Gravity.h"
@@ -33,6 +34,9 @@ int main()
 	WindowManager windowManager;
 	//window.init("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);
 	windowManager.Init("Engine", 1920, 1080, 0, 0);
+
+	UserInterfaceManager uiManager;
+	//uiManager.ConfigureImGui();
 
     gCoordinator.AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
@@ -132,7 +136,6 @@ int main()
 
 	float dt = 0.0f;
 
-    //while (!window.shouldClose())
 	while (!quit)
     {
         auto startTime = std::chrono::high_resolution_clock::now();
@@ -142,20 +145,29 @@ int main()
         /*window.initImGui();
         window.renderImGui();
         window.bindFrameBuffer();*/
+
+	/*	uiManager.Update();
+		uiManager.BindFrameBuffer();*/
 		
 		playerControlSystem->Update(dt);
 		cameraControlSystem->Update(dt);
         physicsSystem->Update(dt);
 		renderSystem->Update(dt);
+
+		//uiManager.UnbindFrameBuffer();
+
 		windowManager.Update();
         
         //window.unbindFrameBuffer();
         
+
 		auto stopTime = std::chrono::high_resolution_clock::now();
         dt = std::chrono::duration<float, std::chrono::seconds::period>(stopTime - startTime).count();
     }
 
     //window.closeImGui();
+
+	//uiManager.ShutDown();
 	windowManager.Shutdown();
     return 0;
 }
