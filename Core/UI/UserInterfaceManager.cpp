@@ -102,6 +102,10 @@ void UserInterfaceManager::configureUserInterface()
     ImGui::Begin("Test");
     ImGui::Text("Hello Test!");
     ImGui::End();
+
+    ImGui::Begin("Adjust Property");
+    ImGui::SliderFloat("My Value", &m_CameraControlSystem.speed, 0.0f, 100.0f);
+    ImGui::End(); 
     ImGui::EndFrame();
 }
 

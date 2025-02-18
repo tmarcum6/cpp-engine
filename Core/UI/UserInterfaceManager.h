@@ -1,6 +1,7 @@
 #pragma once
 
 #include "FrameBuffer.h"
+#include "CameraControlSystem.h"
 
 class UserInterfaceManager
 {
@@ -21,5 +22,6 @@ private:
 	void configureUserInterface();
 	void setBackupContext();
 	
-	ImGuiViewport* m_viewport;
+	ImGuiViewport *m_viewport;
+	CameraControlSystem m_CameraControlSystem;
 };

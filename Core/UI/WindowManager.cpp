@@ -85,5 +85,6 @@ void WindowManager::ProcessEvents()
 		Event event(Events::Window::INPUT);
 		event.SetParam(Events::Window::Input::INPUT, mButtons);
 		gCoordinator.SendEvent(event);
+		mButtons.reset();
 	}
 }

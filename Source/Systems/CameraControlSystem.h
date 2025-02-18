@@ -10,8 +10,9 @@ class CameraControlSystem : public System
 {
 public:
 	void Init();
-
 	void Update(float dt);
+
+	float speed = 20.0f;
 
 private:
 	std::bitset<8> mButtons;
