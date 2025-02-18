@@ -35,7 +35,7 @@ void WindowManager::Update()
 	glfwSwapBuffers(mWindow);
 }
 
-void WindowManager::Shutdown()
+void WindowManager::ShutDown()
 {
 	glfwDestroyWindow(mWindow);
 	glfwTerminate();

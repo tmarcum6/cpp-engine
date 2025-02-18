@@ -18,7 +18,7 @@ public:
 
 	void Update();
 	void ProcessEvents();
-	void Shutdown();
+	void ShutDown();
 
 	UserInterfaceManager mUserInterfaceManager;
 

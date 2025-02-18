@@ -155,7 +155,7 @@ int main()
     }
 
 	userInterfaceManager->ShutDown();
-	windowManager.Shutdown();
+	windowManager.ShutDown();
     return 0;
 }
 
