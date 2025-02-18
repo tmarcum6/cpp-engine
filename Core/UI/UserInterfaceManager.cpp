@@ -4,7 +4,7 @@ float static clamp(float value, float min, float max) {
     return (value < min) ? min : (value > max) ? max : value;
 }
 
-void UserInterfaceManager::ConfigureImGui(GLFWwindow *mWindow)
+void UserInterfaceManager::Init(GLFWwindow *mWindow)
 {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
@@ -12,7 +12,7 @@ void UserInterfaceManager::ConfigureImGui(GLFWwindow *mWindow)
     (void)io;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
     io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;
-    io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+    //io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
     io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
     io.ConfigDockingWithShift = true;
 
@@ -26,15 +26,9 @@ void UserInterfaceManager::ConfigureImGui(GLFWwindow *mWindow)
 
 void UserInterfaceManager::Update()
 {
-    initImGui();
-}
-
-void UserInterfaceManager::initImGui()
-{
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplGlfw_NewFrame();
-    drawUI();
-    renderImGui();
+    configureUserInterface();
 }
 
 void UserInterfaceManager::ShutDown()
@@ -44,11 +38,11 @@ void UserInterfaceManager::ShutDown()
     ImGui::DestroyContext();
 }
 
-void UserInterfaceManager::renderImGui()
+void UserInterfaceManager::Render()
 {
     ImGui::Render();
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
-    setBackupContext();
+    //setBackupContext();
 }
 
 void UserInterfaceManager::setBackupContext()
@@ -59,25 +53,23 @@ void UserInterfaceManager::setBackupContext()
     glfwMakeContextCurrent(backup_current_context);
 }
 
-void UserInterfaceManager::drawUI()
+void UserInterfaceManager::configureUserInterface()
 {
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+   /* glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);*/
 
    /* m_viewport= ImGui::GetMainViewport();
     ImVec2 minBound = m_viewport->Pos;
-    ImVec2 maxBound = ImVec2(m_viewport->Pos.x + m_viewport->Size.x, m_viewport->Pos.y + m_viewport->Size.y);*/
+    //ImVec2 maxBound = ImVec2(m_viewport->Pos.x + m_viewport->Size.x, m_viewport->Pos.y + m_viewport->Size.y);*/
 
     ImGui::NewFrame();
-        ImGui::ShowDemoWindow();
-
-        ImGui::Begin("Demo");
-            ImGui::Text("Hello Demo!");
-        ImGui::End();
-
-        ImGui::Begin("Test");
-            ImGui::Text("Hello Test!");
-        ImGui::End();
+		ImGui::ShowDemoWindow();
+		ImGui::Begin("Demo");
+			ImGui::Text("Hello Demo!");
+		ImGui::End();
+		ImGui::Begin("Test");
+			ImGui::Text("Hello Test!");
+		ImGui::End();
     ImGui::EndFrame();
 }
 

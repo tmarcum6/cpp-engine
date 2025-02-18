@@ -7,7 +7,8 @@ class UserInterfaceManager
 public:
 	void Update();
 	void ShutDown();
-	void ConfigureImGui(GLFWwindow *mWindow);
+	void Init(GLFWwindow *mWindow);
+	void Render();
 
 	//void BindFrameBuffer() const;
 	//void UnbindFrameBuffer() const;	
@@ -16,10 +17,9 @@ public:
 	//static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
 private:
-	void initImGui();
-	void renderImGui();
-	void drawUI();
+	void configureUserInterface();
 	void setBackupContext();
 	
-	ImGuiViewport* m_viewport;
+	//ImGuiViewport* m_viewport;
+	//GLFWwindow* m_Window;
 };

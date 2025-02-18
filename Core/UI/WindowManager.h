@@ -20,10 +20,9 @@ public:
 	void ProcessEvents();
 	void Shutdown();
 
+	UserInterfaceManager mUserInterfaceManager;
+
 private:
 	GLFWwindow* mWindow;
-	
-	UserInterfaceManager* mUserInterfaceManager;
-
 	std::bitset<8> mButtons;
 };

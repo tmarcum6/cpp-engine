@@ -13,3 +13,4 @@ x -> change shaders to glsl extension type
 x -> assimp
 x -> move Math class to use glm
 x -> add back loadtexture function from old renderer class
+x -> ("Engine", window.SCR_WIDTH, window.SCR_HEIGHT);

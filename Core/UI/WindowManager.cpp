@@ -19,7 +19,8 @@ void WindowManager::Init(
 	// Create OpenGL Context
 	glfwMakeContextCurrent(mWindow);
 
-	mUserInterfaceManager->ConfigureImGui(mWindow);
+	// Initialize ImGui
+	mUserInterfaceManager.Init(mWindow);
 
 	gladLoadGLLoader((GLADloadproc)glfwGetProcAddress);
 	glfwSwapInterval(2);
@@ -29,12 +30,10 @@ void WindowManager::Init(
 	glEnable(GL_DEPTH_TEST);
 }
 
-
 void WindowManager::Update()
 {
 	glfwSwapBuffers(mWindow);
 }
-
 
 void WindowManager::Shutdown()
 {
