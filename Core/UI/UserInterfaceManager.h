@@ -10,16 +10,16 @@ public:
 	void Init(GLFWwindow *mWindow);
 	void Render();
 
-	//void BindFrameBuffer() const;
-	//void UnbindFrameBuffer() const;	
-	//std::unique_ptr<FrameBuffer> framebuffer;
+	void BindFrameBuffer() const;
+	void UnbindFrameBuffer() const;	
 
-	//static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+	
+	std::unique_ptr<FrameBuffer> framebuffer;
 
 private:
 	void configureUserInterface();
 	void setBackupContext();
 	
-	//ImGuiViewport* m_viewport;
-	//GLFWwindow* m_Window;
+	ImGuiViewport* m_viewport;
 };

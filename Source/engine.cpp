@@ -35,6 +35,7 @@ int main()
 	windowManager.Init("Engine", 1920, 1080, 0, 0);
 	
 	UserInterfaceManager* userInterfaceManager = &windowManager.mUserInterfaceManager;
+	userInterfaceManager->framebuffer = std::make_unique<FrameBuffer>(1920, 1080);
 
 	gCoordinator.AddEventListener(FUNCTION_LISTENER(Events::Window::QUIT, QuitHandler));
 
@@ -140,10 +141,12 @@ int main()
 		
 		windowManager.ProcessEvents();
 		userInterfaceManager->Update();
+		userInterfaceManager->BindFrameBuffer();
 		playerControlSystem->Update(dt);
 		cameraControlSystem->Update(dt);
         physicsSystem->Update(dt);
 		renderSystem->Update(dt);
+		userInterfaceManager->UnbindFrameBuffer();
 		userInterfaceManager->Render();
 		windowManager.Update();
 
