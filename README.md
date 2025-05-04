@@ -1,4 +1,4 @@
-# Engine
+# cpp-engine
 
 This is a 3D game engine written using C++ and OpenGL.
 
